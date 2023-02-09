@@ -15,6 +15,9 @@ export class GenerateAngular {
   addSchematics() {}
 }
 
-const generatorAngular = new GenerateAngular(`${__dirname}/../`, "oscar", shell);
+const path = `${__dirname}/../`;
+const projectName = "oscar";
+
+const generatorAngular = new GenerateAngular(path, projectName, shell);
 
 generatorAngular.generateAngularProject();
