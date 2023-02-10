@@ -1,0 +1,39 @@
+@import "./../../../../../assets/scss/custom";
+
+.generalButtons {
+  top: toREM(675);
+
+  &__navItem {
+    width: toREM(207);
+    z-index: 250;
+    background-color: rgba(red, 0.3);
+
+    &--1 {
+      top: toREM(0);
+      left: toREM(0);
+      height: toREM(269);
+    }
+    &--2 {
+      top: toREM(269);
+      left: toREM(0);
+      height: toREM(259);
+    }
+    &--3 {
+      top: toREM(527);
+      left: toREM(0);
+      height: toREM(259);
+      z-index: 600;
+    }
+  }
+}
+
+.backToHome {
+  &__navItem {
+    z-index: 250;
+    top: toREM(0);
+    right: toREM(0);
+    width: toREM(375);
+    height: toREM(179);
+    background-color: rgba(red, 0.3);
+  }
+}

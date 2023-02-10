@@ -1,0 +1,32 @@
+<main
+  class="container-landscape"
+  appCursorManager
+  appTracking
+  appTrackingLabels
+>
+  <router-outlet></router-outlet>
+  <div app-isi></div>
+  <div app-modals></div>
+  <app-tracking-labels></app-tracking-labels>
+</main>
+
+<!-- 
+  Components:
+  - <app-tracking-labels></app-tracking-labels>
+  - Dynamic pages Component
+  - <div app-preloader-images></div>
+  - <div app-isi></div>
+  - <div app-modals></div>
+  - <div app-slide-controller></div>
+
+  Directives:
+  - appBackToHomeWhenReload="home"
+  - appGoToScreenSaver
+    --- ScreenSaver with video
+    --- Timer in any tab
+  - DetectActualPath
+
+  Servicio:
+  - SiblingsComunicationService
+  - ModalService
+ -->

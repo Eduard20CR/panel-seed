@@ -1,0 +1,17 @@
+@import "./../../../../assets/scss/custom";
+
+:host {
+  position: absolute;
+  bottom: 0;
+}
+.nav {
+  width: toREM(1080);
+
+  display: flex;
+  justify-content: space-between;
+
+  &__controler {
+    padding: toREM(22) toREM(40);
+    background-color: aquamarine;
+  }
+}

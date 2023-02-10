@@ -1,0 +1,43 @@
+@import "src/assets/scss/custom";
+
+.tracking-buttons {
+    background-color: rgba(255, 0, 0, 0.1) !important;
+    outline: toREM(2) solid red;
+    outline-offset: -toREM(2);
+  }
+  .not-tracking-buttons {
+    outline: toREM(4) dotted blue;
+  }
+  .tracking-button-hover {
+    background-color: rgba(255, 247, 0, 0.1) !important;
+    outline: toREM(2) solid yellow;
+    outline-offset: -toREM(2);
+
+  }
+  .developer{
+    * { 
+    outline: toREM(2) solid blue;
+    outline-offset: -toREM(2);
+    }
+  }
+
+  .name-element{
+    position: fixed;
+    top: 0;
+    right: 50%;
+    transform: translate(50%, 0%);
+    font-size: toREM(22);
+    font-weight: bold;
+    color: white;
+    padding: toREM(8);
+    border-radius: toREM(0) toREM(0) toREM(6) toREM(6) ;
+    background-color: black;
+    outline: none !important;
+    display: inline-block;
+    width: max-content;
+    z-index: 2000;
+  }
+
+  .hidden{
+    display: none;
+  }
