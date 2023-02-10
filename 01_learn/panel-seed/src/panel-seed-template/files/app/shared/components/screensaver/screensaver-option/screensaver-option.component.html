@@ -1,0 +1,18 @@
+<div class="backgroundShadow" *ngIf="!questionAnswered"></div>
+<div class="options" *ngIf="!questionAnswered">
+  <h2 class="options__tittle">Do you want a screensaver?</h2>
+  <div class="options__btnContainer">
+    <button
+      class="options__btn options__btn--yes"
+      (click)="screensaverSelecIfWanted(true)"
+    >
+      Yes
+    </button>
+    <button
+      class="options__btn options__btn--no"
+      (click)="screensaverSelecIfWanted(false)"
+    >
+      No
+    </button>
+  </div>
+</div>

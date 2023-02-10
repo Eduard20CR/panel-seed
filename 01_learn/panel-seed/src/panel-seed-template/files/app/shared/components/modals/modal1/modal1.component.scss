@@ -1,0 +1,34 @@
+@import "./../../../../../assets/scss/custom";
+
+.modal1Container {
+  width: toREM(1080);
+  height: toREM(1920);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s, visibility 0.5s;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__backdrop {
+    background-color: rgba($color: #000000, $alpha: 0.5);
+  }
+
+  &__content {
+    background-image: url("/assets/images/shared/modals/modal1.png");
+    background-size: contain;
+    width: toREM(963);
+    height: toREM(1130);
+    top: toREM(230);
+    left: toREM(60);
+  }
+
+  &__closeBtn {
+    top: toREM(1109);
+    left: toREM(381);
+    height: toREM(100);
+    width: toREM(309);
+  }
+}

@@ -1,0 +1,12 @@
+<div class="multipleSS" *ngIf="!questionAnswered">
+  <p class="multipleSS__title">Select your screenSaver</p>
+  <div class="multipleSS__typesContainer">
+    <div
+      class="multipleSS__typeItem"
+      *ngFor="let item of arrOfScreenSavers; let i = index"
+      (click)="screenSaverSelected(i)"
+    >
+      <img [src]="item" alt="" />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="dynamicPictures">
+  <!-- BACKGROUND IMAGE -->
+  <div class="dynamicPictures__backgroundImageContainer">
+    <img
+      class="dynamicPictures__bgImage"
+      [src]="'/assets/images/slides/dynamic-pages/' + imgLink + '.png'"
+      alt=""
+    />
+  </div>
+
+  <div app-slides [imgLink]="imgLink"></div>
+  <div app-buttons [imgLink]="imgLink" *ngIf="!isPopUpOpen"></div>
+</div>
