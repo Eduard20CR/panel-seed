@@ -1,22 +1,22 @@
-import { Report } from "../assets/magma-panel-report/Report"
-import type { CapacitorElectronConfig } from '@capacitor-community/electron';
-import { getCapacitorElectronConfig, setupElectronDeepLinking } from '@capacitor-community/electron';
-import { ipcMain, MenuItemConstructorOptions } from 'electron';
-import { app, MenuItem } from 'electron';
-import electronIsDev from 'electron-is-dev';
-import unhandled from 'electron-unhandled';
-import { autoUpdater } from 'electron-updater';
+import { Report } from "../assets/magma-panel-report/Report";
+import type { CapacitorElectronConfig } from "@capacitor-community/electron";
+import { getCapacitorElectronConfig, setupElectronDeepLinking } from "@capacitor-community/electron";
+import { ipcMain, MenuItemConstructorOptions } from "electron";
+import { app, MenuItem } from "electron";
+import electronIsDev from "electron-is-dev";
+import unhandled from "electron-unhandled";
+import { autoUpdater } from "electron-updater";
 
-import { ElectronCapacitorApp, setupContentSecurityPolicy, setupReloadWatcher } from './setup';
+import { ElectronCapacitorApp, setupContentSecurityPolicy, setupReloadWatcher } from "./setup";
 
 // Graceful handling of unhandled errors.
 unhandled();
 
 // Define our menu templates (these are optional)
-const trayMenuTemplate: (MenuItemConstructorOptions | MenuItem)[] = [new MenuItem({ label: 'Quit App', role: 'quit' })];
+const trayMenuTemplate: (MenuItemConstructorOptions | MenuItem)[] = [new MenuItem({ label: "Quit App", role: "quit" })];
 const appMenuBarMenuTemplate: (MenuItemConstructorOptions | MenuItem)[] = [
-  { role: process.platform === 'darwin' ? 'appMenu' : 'fileMenu' },
-  { role: 'viewMenu' },
+  { role: process.platform === "darwin" ? "appMenu" : "fileMenu" },
+  { role: "viewMenu" },
 ];
 
 // Get Config options from capacitor.config
@@ -29,7 +29,7 @@ const myCapacitorApp = new ElectronCapacitorApp(capacitorFileConfig, trayMenuTem
 // If deeplinking is enabled then we will set it up here.
 if (capacitorFileConfig.electron?.deepLinkingEnabled) {
   setupElectronDeepLinking(myCapacitorApp, {
-    customProtocol: capacitorFileConfig.electron.deepLinkingCustomProtocol ?? 'mycapacitorapp',
+    customProtocol: capacitorFileConfig.electron.deepLinkingCustomProtocol ?? "mycapacitorapp",
   });
 }
 
@@ -51,16 +51,16 @@ if (electronIsDev) {
 })();
 
 // Handle when all of our windows are close (platforms have their own expectations).
-app.on('window-all-closed', function () {
+app.on("window-all-closed", function () {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
 // When the dock icon is clicked.
-app.on('activate', async function () {
+app.on("activate", async function () {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (myCapacitorApp.getMainWindow().isDestroyed()) {
@@ -75,5 +75,5 @@ ipcMain.on("create-tracking", (event, track) => {
 });
 
 ipcMain.on("quit-application", () => {
-  app.quit()
+  app.quit();
 });
