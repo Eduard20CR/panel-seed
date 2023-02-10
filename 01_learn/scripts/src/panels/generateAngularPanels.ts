@@ -3,7 +3,8 @@ const path = require("path");
 const fsextra = require("fs-extra");
 
 export class GenerateAngular {
-  //   private _seedPanelFiles: string;
+  private _seedPanelFiles =
+    "/Users/oscar.vasquez/Documents/02_internal/2023/02_New_Panel_Seed/01_learn/panel-seed/src/collection.json:panel-seed-template";
 
   constructor(private _projectPath: string, private _projectName: string, private shell: any) {}
 
@@ -14,7 +15,8 @@ export class GenerateAngular {
     // 2) check if there is an angular project
     // ---> If exist => throw exeption
     try {
-      const isAngularFolder = await fsextra.pathExists(path.join(this._projectPath, "angular"));
+      const angularPath = path.join(this._projectPath, "angular");
+      const isAngularFolder = await fsextra.pathExists(angularPath);
       if (isAngularFolder) throw Error("Please delete angular folder in the destionation folder");
     } catch (error) {
       throw error;
@@ -23,14 +25,18 @@ export class GenerateAngular {
     // 3) generate angular
     this.shell.exec(`ng new ${this._projectName} --routing true --style scss --skip-tests true --directory angular`);
 
-    // 4) add seed with schematics
-    this.shell.exec(`ng new ${this._projectName} --routing true --style scss --skip-tests true --directory angular`);
+    // 4) move to angular project
+    this.shell.cd("angular");
 
-    // 5) change outputPath in angular.json
-    // 6) install bootstrap dependency
-    // 7) check if everything was created
+    // 4) install bootstrap
+    this.shell.exec("npm i bootstrap");
 
-    // this.shell.cd("angular");
+    // 5) add seed with schematics
+    this.shell.exec(`ng g ${this._seedPanelFiles}`);
+
+    // 6) change outputPath in angular.json
+    // 7) install bootstrap dependency
+    // 8) check if everything was created
   }
 
   addSchematics() {}
