@@ -1,0 +1,6 @@
+{
+  "appId": "com.dupixent.panel",
+  "appName": "test-ariana",
+  "webDir": "../webroot",
+  "bundledWebRuntime": false
+}

@@ -1,6 +1,7 @@
 {
   "compileOnSave": true,
   "include": ["./src/**/*", "./capacitor.config.ts", "./capacitor.config.js"],
+  "exclude": ["./src/panel-seed/src/*/files/**/*"],
   "compilerOptions": {
     "outDir": "./build",
     "importHelpers": true,
@@ -10,6 +11,7 @@
     "esModuleInterop": true,
     "typeRoots": ["./node_modules/@types"],
     "allowJs": true,
-    "rootDir": "."
+    "rootDir": ".",
+    "types": ["jasmine", "node"]
   }
 }
