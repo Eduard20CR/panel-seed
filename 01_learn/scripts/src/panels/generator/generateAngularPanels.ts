@@ -18,7 +18,7 @@ export class GenerateAngular {
     if (this.checkIfAngularExists()) throw new Error("Please remove any angular project in the destination directory");
 
     // 3) generate angular
-    this.shell.exec(`ng new ${this._projectName} --routing --style=scss --skip-tests --directory=angular --skip-install`);
+    this.shell.exec(`ng new ${this._projectName} --routing --style=scss --skip-tests --directory=angular`);
 
     // 4) move to angular project
     this.shell.cd("angular");
@@ -32,6 +32,7 @@ export class GenerateAngular {
 
     // 6) change outputPath in angular.json
     shell.sed("-i", /"outputPath":\s*("[^"]*"|''),/gm, '"outputPath": "./../webroot",', "angular.json");
+    shell.sed("-i", /\"scripts\":\s*\[\s*\]/, '"scripts": ["node_modules/bootstrap/dist/js/bootstrap.js"]', "angular.json");
 
     // 8) check if everything was created
     if (!this.checkIfAngularExists()) throw new Error("Something went wrong");
