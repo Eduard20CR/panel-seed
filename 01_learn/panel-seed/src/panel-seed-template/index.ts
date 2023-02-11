@@ -15,7 +15,7 @@ export function panelSeed(_options: PanelSeed): Rule {
         fontSize: 20,
         vh: 1080,
         vw: 1920,
-        panelOrientation: "",
+        panelOrientation: "portrait",
       }),
       move(normalize(`src/`)),
     ]);

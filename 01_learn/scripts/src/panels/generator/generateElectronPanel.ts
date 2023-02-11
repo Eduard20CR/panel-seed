@@ -16,7 +16,6 @@ export class GenerateElectron {
     this.shell.exec(`npm i @capacitor-community/electron`);
     this.shell.exec(`npx cap add @capacitor-community/electron`);
   }
-
   addSchematics() {}
 }
 
