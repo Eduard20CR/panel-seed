@@ -9,6 +9,7 @@ import { autoUpdater } from "electron-updater";
 
 import { ElectronCapacitorApp, setupContentSecurityPolicy, setupReloadWatcher } from "./setup";
 import { GenerateAngular } from "./panelGenerator/anuglat";
+import { GenerateAngularPanels } from "./generators/panels/angular/generateAngularPanels";
 
 // Graceful handling of unhandled errors.
 unhandled();
@@ -46,6 +47,8 @@ if (electronIsDev) {
   await myCapacitorApp.init();
   // Check for updates if we are in a packaged app.
   //autoUpdater.checkForUpdatesAndNotify();
+  const gap = new GenerateAngularPanels(app.getPath("desktop"), "test");
+  gap.generateProject();
 })();
 
 // Handle when all of our windows are close (platforms have their own expectations).
