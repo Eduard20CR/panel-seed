@@ -28,9 +28,7 @@
     "electron-serve": "~1.1.0",
     "electron-unhandled": "~4.0.1",
     "electron-updater": "~5.0.1",
-    "electron-window-state": "~5.0.3",
-    "moment-timezone": "^0.5.40",
-    "sqlite3": "^5.1.4"
+    "electron-window-state": "~5.0.3"
   },
   "devDependencies": {
     "electron": "^19.0.0",
@@ -52,8 +50,8 @@
     "mac": {
       "category": "public.app-category.medical",
       "target": {
-        "target" : "default",
-        "arch" : [
+        "target": "default",
+        "arch": [
           "x64"
         ]
       },
@@ -61,8 +59,8 @@
     },
     "win": {
       "target": {
-        "target" : "NSIS",
-        "arch" : [
+        "target": "NSIS",
+        "arch": [
           "x64"
         ]
       },

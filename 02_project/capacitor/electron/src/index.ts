@@ -14,10 +14,7 @@ unhandled();
 
 // Define our menu templates (these are optional)
 const trayMenuTemplate: (MenuItemConstructorOptions | MenuItem)[] = [new MenuItem({ label: "Quit App", role: "quit" })];
-const appMenuBarMenuTemplate: (MenuItemConstructorOptions | MenuItem)[] = [
-  { role: process.platform === "darwin" ? "appMenu" : "fileMenu" },
-  { role: "viewMenu" },
-];
+const appMenuBarMenuTemplate: (MenuItemConstructorOptions | MenuItem)[] = [{ role: process.platform === "darwin" ? "appMenu" : "fileMenu" }, { role: "viewMenu" }];
 
 // Get Config options from capacitor.config
 const capacitorFileConfig: CapacitorElectronConfig = getCapacitorElectronConfig();
@@ -54,9 +51,9 @@ if (electronIsDev) {
 app.on("window-all-closed", function () {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
+  // if (process.platform !== "darwin") {
+  app.quit();
+  // }
 });
 
 // When the dock icon is clicked.
@@ -69,10 +66,6 @@ app.on("activate", async function () {
 });
 
 // Place all ipc or other electron api calls and custom functionality under this line
-const report = new Report();
-ipcMain.on("create-tracking", (event, track) => {
-  report.insertRecord(track);
-});
 
 ipcMain.on("quit-application", () => {
   app.quit();
