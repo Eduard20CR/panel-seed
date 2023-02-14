@@ -32,10 +32,14 @@
     "electron-serve": "~1.1.0",
     "electron-unhandled": "~4.0.1",
     "electron-updater": "~5.0.1",
+<<<<<<< HEAD
     "electron-window-state": "~5.0.3",
     "fs-extra": "^11.1.0",
     "moment-timezone": "^0.5.40",
     "shelljs": "^0.8.5"
+=======
+    "electron-window-state": "~5.0.3"
+>>>>>>> dev
   },
   "devDependencies": {
     "@types/jasmine": "^4.3.1",

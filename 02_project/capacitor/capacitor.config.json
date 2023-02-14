@@ -1,6 +1,6 @@
 {
-  "appId": "com.dupixent.panel",
-  "appName": "test-ariana",
+  "appId": "com.maikos.panel",
+  "appName": "maikos",
   "webDir": "../webroot",
   "bundledWebRuntime": false
 }
