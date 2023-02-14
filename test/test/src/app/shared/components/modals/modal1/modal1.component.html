@@ -1,0 +1,14 @@
+<div
+  class="modal1Container position-absolute top-0"
+  [ngClass]="{ active: modal1 }"
+>
+  <div
+    class="modal1Container__backdrop position-absolute w-100 h-100"
+    (click)="onModal1Emmiter()"
+  ></div>
+  <div class="modal1Container__content position-absolute"></div>
+  <div
+    class="modal1Container__closeBtn position-absolute"
+    (click)="onModal1Emmiter()"
+  ></div>
+</div>

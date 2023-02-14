@@ -1,0 +1,12 @@
+@import "./../../../assets/scss/custom";
+
+.dynamicPictures {
+  background-color: beige;
+  width: toREM(1080);
+  height: toREM(1920);
+
+  &__bgImage {
+    width: 100%;
+    height: 100%;
+  }
+}
