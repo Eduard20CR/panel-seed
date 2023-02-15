@@ -2,6 +2,7 @@ import { exec } from "child_process";
 
 const path = require("path");
 const fsextra = require("fs-extra");
+const fs = require("fs/promises");
 
 export class GenerateAngularPanels {
   private _commandsToExec: string[] = [];
@@ -16,8 +17,7 @@ export class GenerateAngularPanels {
 
     // check if there is an angular project
     // ---> If exist => throw exeption
-    console.log(await this.isAngularProjectInDirectory());
-    if (await this.isAngularProjectInDirectory()) throw Error("Please delete angular folder in the destionation folder");
+    // if (await this.isAngularProjectInDirectory()) throw Error("Please delete angular folder in the destionation folder");
 
     // generate angular
     this._commandsToExec.push(`ng new ${this._projectName} --routing --skip-tests --directory=angular --style=scss`);
@@ -34,21 +34,42 @@ export class GenerateAngularPanels {
     // add seed with schematics
     this._commandsToExec.push(`ng g panel-seed-test/src/collection.json:panel-seed-template`);
 
-    // change outputPath in angular.json
-    this._commandsToExec.push(`sed -i '' 's/"outputPath": "[^"]*"/"outputPath": "\.\/\.\.\/webroot"/g' angular.json`);
+    // run all commands
+    await this.runCommands();
 
     // change outputPath in angular.json
-    this._commandsToExec.push(`sed -i '' 's/"scripts": \[[^"]*\]/"scripts": \["node_modules\/bootstrap\/dist\/js\/bootstrap.js"\]/g' angular.json`);
+    // change scripts in angular.json
+    await this.editFile();
 
     // check if everything was created
-
-    const terminal = exec(this._commandsToExec.join("; "));
-    terminal.stdout.on("data", function (data) {
-      console.log(data);
-    });
+    console.log("Panel Generated");
   }
 
   addSchematics() {}
+
+  async editFile() {
+    const angularJsonFile = path.join(this._angularPath, "angular.json");
+
+    const newFileData = await fs.readFile(angularJsonFile, "utf-8");
+
+    const editedFileData = newFileData
+      .replaceAll(/"outputPath": "[^"]*"/gm, '"outputPath": "./../webroot"')
+      .replaceAll(/"scripts": \[((?:\s*"(?:[^"\\]|\\.)*"\s*,\s*)*|(?:\s*))\]/gm, '"scripts": ["node_modules/bootstrap/dist/js/bootstrap.js"]');
+
+    return await fs.writeFile(angularJsonFile, editedFileData);
+  }
+
+  private runCommands() {
+    return new Promise((res, err) => {
+      const commands = this._commandsToExec.join("; ");
+      exec(commands, (error) => {
+        if (error) {
+          return err(new Error("Something happened"));
+        }
+        res("Panel generated!");
+      });
+    });
+  }
 
   private isAngularProjectInDirectory() {
     return fsextra.pathExists(this._angularPath);
