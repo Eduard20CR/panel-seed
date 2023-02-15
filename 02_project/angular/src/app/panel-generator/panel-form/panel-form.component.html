@@ -1,0 +1,75 @@
+<div class="container mt-5">
+  <div class="row">
+    <form
+      [formGroup]="registroPanelForm"
+      (ngSubmit)="registrarHerramienta()"
+      autocomplete="off"
+    >
+      <div class="container-fluid">
+        <div class="row g-3 pb-3">
+          <ng-container *ngFor="let input of registroPanelFormData.inputs">
+            <div [class]="input.class">
+              <label
+                [for]="input.id"
+                class="form-label"
+                [innerHTML]="input.label"
+              ></label>
+              <input
+                [type]="input.type"
+                class="form-control"
+                [id]="input.id"
+                [placeholder]="input.placeholder"
+                [formControlName]="input.id"
+                [maxlength]="input.maxlength"
+                [class]="getClassCSS(input.id)"
+              />
+              <div
+                class="invalid-feedback"
+                [innerHTML]="inputErrorMessage(input)"
+              ></div>
+            </div>
+          </ng-container>
+          <div class="input-group mb-3">
+            <span
+              class="input-group-text"
+              id="basic-addon1"
+              (click)="onSelectFolder()"
+              >Select File</span
+            >
+            <input
+              id="route"
+              type="text"
+              class="form-control"
+              placeholder="Username"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+              formControlName="route"
+              readonly
+            />
+          </div>
+          <!--
+                <ng-container *ngFor="let textArea of registroPanelFormData.textAreas">
+                  <div [class]="textArea.class">
+                    <div>
+                      <label [for]="textArea.id" class="form-label" [innerHTML]="textArea.label"></label>
+                      <textarea class="form-control" [id]="textArea.id" [placeholder]="textArea.placeholder"
+                        [formControlName]="textArea.id" [maxlength]="textArea.maxlength"
+                        [class]="getClassCSS(textArea.id)"></textarea>
+                      <div class="invalid-feedback" [innerHTML]="textAreaErrorMessage(textArea)">
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                -->
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="onGenerateAngular()"
+      >
+        Registrar Herramienta
+      </button>
+    </form>
+  </div>
+</div>

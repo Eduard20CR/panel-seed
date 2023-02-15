@@ -3,19 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'screensaver',
+    path: 'panel-generator',
     loadChildren: async () =>
-      (await import('./shared/components/screensaver/screensaver.module'))
-        .ScreensaverModule,
-  },
-  {
-    path: ':id',
-    loadChildren: async () =>
-      (await import('./slides/slides.module')).SlidesModule,
+      (await import('./panel-generator/panel-generator.module'))
+        .PanelGeneratorModule,
   },
   {
     path: '**',
-    redirectTo: 'tab-0',
+    redirectTo: 'panel-generator',
     pathMatch: 'full',
   },
 ];

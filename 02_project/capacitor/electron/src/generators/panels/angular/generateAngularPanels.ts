@@ -17,7 +17,7 @@ export class GenerateAngularPanels {
 
     // check if there is an angular project
     // ---> If exist => throw exeption
-    // if (await this.isAngularProjectInDirectory()) throw Error("Please delete angular folder in the destionation folder");
+    if (await this.isAngularProjectInDirectory()) throw Error("Please delete angular folder in the destionation folder");
 
     // generate angular
     this._commandsToExec.push(`ng new ${this._projectName} --routing --skip-tests --directory=angular --style=scss`);

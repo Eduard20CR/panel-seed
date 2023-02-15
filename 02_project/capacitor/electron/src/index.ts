@@ -1,7 +1,7 @@
 import { Report } from "../assets/magma-panel-report/Report";
 import type { CapacitorElectronConfig } from "@capacitor-community/electron";
 import { getCapacitorElectronConfig, setupElectronDeepLinking } from "@capacitor-community/electron";
-import { ipcMain, MenuItemConstructorOptions } from "electron";
+import { dialog, ipcMain, MenuItemConstructorOptions } from "electron";
 import { app, MenuItem } from "electron";
 import electronIsDev from "electron-is-dev";
 import unhandled from "electron-unhandled";
@@ -14,7 +14,10 @@ unhandled();
 
 // Define our menu templates (these are optional)
 const trayMenuTemplate: (MenuItemConstructorOptions | MenuItem)[] = [new MenuItem({ label: "Quit App", role: "quit" })];
-const appMenuBarMenuTemplate: (MenuItemConstructorOptions | MenuItem)[] = [{ role: process.platform === "darwin" ? "appMenu" : "fileMenu" }, { role: "viewMenu" }];
+const appMenuBarMenuTemplate: (MenuItemConstructorOptions | MenuItem)[] = [
+  { role: process.platform === "darwin" ? "appMenu" : "fileMenu" },
+  { role: "viewMenu" },
+];
 
 // Get Config options from capacitor.config
 const capacitorFileConfig: CapacitorElectronConfig = getCapacitorElectronConfig();
@@ -45,8 +48,6 @@ if (electronIsDev) {
   await myCapacitorApp.init();
   // Check for updates if we are in a packaged app.
   //autoUpdater.checkForUpdatesAndNotify();
-  const gap = new GenerateAngularPanels(app.getPath("downloads"), "test");
-  gap.generateProject();
 })();
 
 // Handle when all of our windows are close (platforms have their own expectations).
@@ -71,4 +72,18 @@ app.on("activate", async function () {
 
 ipcMain.on("quit-application", () => {
   app.quit();
+});
+
+ipcMain.handle("get-destination-folder", async () => {
+  const { canceled, filePaths } = await dialog.showOpenDialog({ properties: ["openDirectory"] });
+  if (canceled) throw new Error("Somthing happened");
+
+  return filePaths;
+});
+
+ipcMain.handle("generate-angular", async (_, projectName, projectPath) => {
+  console.log(projectName, projectPath);
+  const gap = new GenerateAngularPanels(projectPath, projectName);
+  await gap.generateProject();
+  return "Panel Done";
 });

@@ -1,6 +1,6 @@
 {
-  "name": "panel-seed",
-  "version": "0.0.0",
+  "name": "panel-seed-test",
+  "version": "0.0.1",
   "description": "A blank schematics",
   "scripts": {
     "build": "tsc -p tsconfig.json --watch",

@@ -45,7 +45,10 @@ export class ElectronCapacitorApp {
   private TrayIcon: Tray | null = null;
   private CapacitorFileConfig: CapacitorElectronConfig;
   private TrayMenuTemplate: (MenuItem | MenuItemConstructorOptions)[] = [new MenuItem({ label: "Quit App", role: "quit" })];
-  private AppMenuBarMenuTemplate: (MenuItem | MenuItemConstructorOptions)[] = [{ role: process.platform === "darwin" ? "appMenu" : "fileMenu" }, { role: "viewMenu" }];
+  private AppMenuBarMenuTemplate: (MenuItem | MenuItemConstructorOptions)[] = [
+    { role: process.platform === "darwin" ? "appMenu" : "fileMenu" },
+    { role: "viewMenu" },
+  ];
   private mainWindowState;
   private loadWebApp;
   private customScheme: string;
@@ -68,10 +71,14 @@ export class ElectronCapacitorApp {
     }
 
     // Setup our web app loader, this lets us load apps like react, vue, and angular without changing their build chains.
-    this.loadWebApp = electronServe({
-      directory: join(app.getAppPath(), "app"),
-      scheme: this.customScheme,
-    });
+    // this.loadWebApp = electronServe({
+    //   directory: join(app.getAppPath(), "app"),
+    //   scheme: this.customScheme,
+    // });
+
+    this.loadWebApp = () => {
+      this.MainWindow.loadURL("http://localhost:4200/");
+    };
   }
 
   // Helper function to load in the app.
