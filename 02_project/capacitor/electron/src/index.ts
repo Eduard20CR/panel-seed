@@ -5,10 +5,8 @@ import { ipcMain, MenuItemConstructorOptions } from "electron";
 import { app, MenuItem } from "electron";
 import electronIsDev from "electron-is-dev";
 import unhandled from "electron-unhandled";
-import { autoUpdater } from "electron-updater";
 
 import { ElectronCapacitorApp, setupContentSecurityPolicy, setupReloadWatcher } from "./setup";
-import { GenerateAngular } from "./panelGenerator/anuglat";
 import { GenerateAngularPanels } from "./generators/panels/angular/generateAngularPanels";
 
 // Graceful handling of unhandled errors.
@@ -47,7 +45,7 @@ if (electronIsDev) {
   await myCapacitorApp.init();
   // Check for updates if we are in a packaged app.
   //autoUpdater.checkForUpdatesAndNotify();
-  const gap = new GenerateAngularPanels(app.getPath("desktop"), "test");
+  const gap = new GenerateAngularPanels(app.getPath("downloads"), "test");
   gap.generateProject();
 })();
 
