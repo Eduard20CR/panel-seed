@@ -52,11 +52,11 @@ export class PanelFormComponent implements OnInit {
   }
 
   onGenerateAngular() {
+    const projectName = this.registroPanelForm.get('nombre')?.value;
+    const projectPath = this.registroPanelForm.get('route')?.value;
+
     this.ipcForms
-      .generateAngular(
-        this.registroPanelForm.get('nombre')?.value,
-        this.registroPanelForm.get('route')?.value
-      )
+      .generateAngular({ projectName, projectPath })
       .then(() => {
         console.log('Done');
       })
