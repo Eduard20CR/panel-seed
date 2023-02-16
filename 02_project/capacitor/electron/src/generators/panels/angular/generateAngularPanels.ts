@@ -7,6 +7,7 @@ const fs = require("fs/promises");
 export class GenerateAngularPanels {
   private _commandsToExec: string[] = [];
   private _angularPath: string;
+
   constructor(private _projectPath: string, private _projectName: string) {
     this._angularPath = path.join(this._projectPath, "angular");
   }

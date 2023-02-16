@@ -8,6 +8,7 @@ import unhandled from "electron-unhandled";
 
 import { ElectronCapacitorApp, setupContentSecurityPolicy, setupReloadWatcher } from "./setup";
 import { GenerateAngularPanels } from "./generators/panels/angular/generateAngularPanels";
+import { IAngularConfig } from "./shared/interface/angular-config.interface";
 
 // Graceful handling of unhandled errors.
 unhandled();
@@ -81,8 +82,7 @@ ipcMain.handle("get-destination-folder", async () => {
   return filePaths;
 });
 
-ipcMain.handle("generate-angular", async (_, projectName, projectPath) => {
-  console.log(projectName, projectPath);
+ipcMain.handle("generate-angular", async (_, { projectName, projectPath }: IAngularConfig) => {
   const gap = new GenerateAngularPanels(projectPath, projectName);
   await gap.generateProject();
   return "Panel Done";

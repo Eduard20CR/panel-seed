@@ -1,6 +1,7 @@
 import { randomBytes } from "crypto";
 import { ipcRenderer, contextBridge } from "electron";
 import { EventEmitter } from "events";
+import { IAngularConfig } from "../shared/interface/angular-config.interface";
 
 ////////////////////////////////////////////////////////
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -87,7 +88,7 @@ contextBridge.exposeInMainWorld("CapacitorCustomPlatform", {
 
 contextBridge.exposeInMainWorld("IPC_FORMS", {
   getDestinationFolder: () => ipcRenderer.invoke("get-destination-folder"),
-  generateAngular: (projectName: string, projectPath: string) => ipcRenderer.invoke("generate-angular", projectName, projectPath),
+  generateAngular: (AngularConfig: IAngularConfig) => ipcRenderer.invoke("generate-angular", AngularConfig),
 });
 
 contextBridge.exposeInMainWorld("API_ELECTRON", {
