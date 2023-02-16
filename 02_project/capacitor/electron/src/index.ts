@@ -9,6 +9,7 @@ import unhandled from "electron-unhandled";
 import { ElectronCapacitorApp, setupContentSecurityPolicy, setupReloadWatcher } from "./setup";
 import { GenerateAngularPanels } from "./generators/panels/angular/generateAngularPanels";
 import { IAngularConfig } from "./shared/interface/angular-config.interface";
+import { exec, execSync } from "child_process";
 
 // Graceful handling of unhandled errors.
 unhandled();
@@ -84,7 +85,23 @@ ipcMain.handle("get-destination-folder", async () => {
 });
 
 ipcMain.handle("generate-angular", async (_, { projectName, projectPath }: IAngularConfig) => {
-  const gap = new GenerateAngularPanels(projectPath, projectName);
-  await gap.generateProject();
+  const arr = [];
+
+  console.log("starting");
+  arr.push(`cd ${projectPath}`);
+
+  // if (await this.isAngularProjectInDirectory()) throw Error("Please delete angular folder in the destionation folder");
+
+  arr.push(`/oscar.vasquez/ng new ${projectName} --routing --skip-tests --directory=angular --style=scss`);
+
+  // await new Promise((res, err) => {
+  const commands = arr.join("; ");
+  execSync(commands);
+  // res("Panel generated!");
+  // });
+  // });
+
+  // const angularApp = new GenerateAngularPanels(projectPath, projectName);
+  // await angularApp.generateProject();
   return "Panel Done";
 });

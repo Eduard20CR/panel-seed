@@ -24,7 +24,7 @@
   "dependencies": {
     "@angular-devkit/core": "^15.1.5",
     "@angular-devkit/schematics": "^15.1.5",
-    "@angular/cli": "^15.1.5",
+    "@angular/cli": "^15.1.6",
     "@capacitor-community/electron": "^4.1.1",
     "@types/shelljs": "^0.8.11",
     "chokidar": "~3.5.3",
@@ -37,8 +37,8 @@
   "devDependencies": {
     "@types/jasmine": "^4.3.1",
     "@types/node": "^18.13.0",
-    "electron": "^19.0.0",
-    "electron-builder": "~22.14.13",
+    "electron": "^23.1.0",
+    "electron-builder": "^23.6.0",
     "electron-rebuild": "^3.2.7",
     "jasmine": "^4.5.0",
     "schematics-utilities": "^2.0.3",

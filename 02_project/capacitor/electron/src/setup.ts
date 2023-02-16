@@ -204,9 +204,9 @@ export class ElectronCapacitorApp {
         this.MainWindow.show();
       }
       setTimeout(() => {
-        if (electronIsDev) {
-          this.MainWindow.webContents.openDevTools();
-        }
+        // if (electronIsDev) {
+        this.MainWindow.webContents.openDevTools();
+        // }
         CapElectronEventEmitter.emit("CAPELECTRON_DeeplinkListenerInitialized", "");
       }, 400);
     });

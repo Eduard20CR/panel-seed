@@ -13,6 +13,7 @@ export class GenerateAngularPanels {
   }
 
   async generateProject() {
+    console.log("starting");
     this._commandsToExec.push(`cd ${this._projectPath}`);
 
     if (await this.isAngularProjectInDirectory()) throw Error("Please delete angular folder in the destionation folder");
@@ -24,9 +25,13 @@ export class GenerateAngularPanels {
     this._commandsToExec.push("npm i bootstrap");
 
     this.addSchematics();
+    console.log("commands added");
 
+    console.log("start commands exec");
     await this.runCommands();
+    console.log("end commands exec");
 
+    console.log("edit files");
     await this.editFile();
   }
 
