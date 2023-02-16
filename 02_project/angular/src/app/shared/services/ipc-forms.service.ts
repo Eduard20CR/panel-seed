@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IAngularConfig } from '../interface/angular-config.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class IpcFormsService {
     }
   }
 
-  async generateAngular(projectName: string, projectPath: string) {
-    await (<any>window).IPC_FORMS.generateAngular(projectName, projectPath);
+  async generateAngular(angularConfig: IAngularConfig) {
+    await (<any>window).IPC_FORMS.generateAngular(angularConfig);
   }
 }

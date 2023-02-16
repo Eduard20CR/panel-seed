@@ -13,40 +13,27 @@ export class GenerateAngularPanels {
   }
 
   async generateProject() {
-    // go to folder
     this._commandsToExec.push(`cd ${this._projectPath}`);
 
-    // check if there is an angular project
-    // ---> If exist => throw exeption
     if (await this.isAngularProjectInDirectory()) throw Error("Please delete angular folder in the destionation folder");
 
-    // generate angular
     this._commandsToExec.push(`ng new ${this._projectName} --routing --skip-tests --directory=angular --style=scss`);
 
-    // move to angular project
     this._commandsToExec.push(`cd angular`);
 
-    // install bootstrap
     this._commandsToExec.push("npm i bootstrap");
 
-    // install schematics library
-    this._commandsToExec.push("npm i panel-seed-test --save-dev");
+    this.addSchematics();
 
-    // add seed with schematics
-    this._commandsToExec.push(`ng g panel-seed-test/src/collection.json:panel-seed-template`);
-
-    // run all commands
     await this.runCommands();
 
-    // change outputPath in angular.json
-    // change scripts in angular.json
     await this.editFile();
-
-    // check if everything was created
-    console.log("Panel Generated");
   }
 
-  addSchematics() {}
+  private addSchematics() {
+    this._commandsToExec.push("npm i panel-seed-test --save-dev");
+    this._commandsToExec.push(`ng g panel-seed-test/src/collection.json:panel-seed-template`);
+  }
 
   async editFile() {
     const angularJsonFile = path.join(this._angularPath, "angular.json");
