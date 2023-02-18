@@ -85,23 +85,11 @@ ipcMain.handle("get-destination-folder", async () => {
 });
 
 ipcMain.handle("generate-angular", async (_, { projectName, projectPath }: IAngularConfig) => {
-  const arr = [];
-
-  console.log("starting");
-  arr.push(`cd ${projectPath}`);
-
-  // if (await this.isAngularProjectInDirectory()) throw Error("Please delete angular folder in the destionation folder");
-
-  arr.push(`/oscar.vasquez/ng new ${projectName} --routing --skip-tests --directory=angular --style=scss`);
-
-  // await new Promise((res, err) => {
-  const commands = arr.join("; ");
-  execSync(commands);
-  // res("Panel generated!");
-  // });
-  // });
-
-  // const angularApp = new GenerateAngularPanels(projectPath, projectName);
-  // await angularApp.generateProject();
-  return "Panel Done";
+  try {
+    const angularApp = new GenerateAngularPanels(projectPath, projectName);
+    await angularApp.generateProject();
+    return "Panel Done";
+  } catch (error) {
+    throw error;
+  }
 });

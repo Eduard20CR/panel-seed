@@ -1,4 +1,4 @@
-import { exec } from "child_process";
+import { exec, execSync } from "child_process";
 
 const path = require("path");
 const fsextra = require("fs-extra");
@@ -53,15 +53,14 @@ export class GenerateAngularPanels {
   }
 
   private runCommands() {
-    return new Promise((res, err) => {
-      const commands = this._commandsToExec.join("; ");
-      exec(commands, (error) => {
-        if (error) {
-          return err(new Error("Something happened"));
-        }
-        res("Panel generated!");
-      });
-    });
+    const commands = this._commandsToExec.join("; ");
+
+    const localNodeModulesPath = path.join(process.cwd(), "node_modules", "@angular", "cli", "bin");
+
+    const env = { PATH: `${process.env.PATH}:/usr/local/bin:${localNodeModulesPath}` };
+    // console.log(process.env.PATH);
+
+    execSync(commands, { env });
   }
 
   private isAngularProjectInDirectory() {
