@@ -8,7 +8,7 @@ const paths = shelljs
   .filter(function (file) {
     return file.match(/[\.png$|\.jpg$]/);
   })
-  .filter((str) => str.toString().endsWith(".jpg") || str.toString().endsWith(".png"))
+  .filter((str) => str.toString().endsWith(".jpg") || str.toString().endsWith(".png") || str.toString().endsWith(".webp"))
   .map((str) => {
     const pathToReplace = imagesFolderpath.replace("assets", "");
     return `'${str.replace(pathToReplace, "/")}'`;
