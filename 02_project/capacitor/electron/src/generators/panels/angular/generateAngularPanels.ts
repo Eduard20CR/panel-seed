@@ -1,4 +1,6 @@
+#!/usr/bin/env node
 import { exec, execSync } from "child_process";
+import { app } from "electron";
 
 const path = require("path");
 const fsextra = require("fs-extra");
@@ -17,6 +19,8 @@ export class GenerateAngularPanels {
     this._commandsToExec.push(`cd ${this._projectPath}`);
 
     if (await this.isAngularProjectInDirectory()) throw Error("Please delete angular folder in the destionation folder");
+
+    const ngBing = path.join("..", "node_modules", ".bin", "ng");
 
     this._commandsToExec.push(`ng new ${this._projectName} --routing --skip-tests --directory=angular --style=scss`);
 
@@ -52,13 +56,12 @@ export class GenerateAngularPanels {
     return await fs.writeFile(angularJsonFile, editedFileData);
   }
 
-  private runCommands() {
+  private async runCommands() {
     const commands = this._commandsToExec.join("; ");
 
-    const localNodeModulesPath = path.join(process.cwd(), "node_modules", "@angular", "cli", "bin");
-
-    const env = { PATH: `${process.env.PATH}:/usr/local/bin:${localNodeModulesPath}` };
-    // console.log(process.env.PATH);
+    const env = {
+      PATH: `/Users/oscar.vasquez/.rvm/gems/ruby-2.7.6/bin:/Users/oscar.vasquez/.rvm/gems/ruby-2.7.6@global/bin:/Users/oscar.vasquez/.rvm/rubies/ruby-2.7.6/bin:/Users/oscar.vasquez/.nvm/versions/node/v16.15.0/bin:~/Applications/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/oscar.vasquez/.rvm/bin`,
+    };
 
     execSync(commands, { env });
   }

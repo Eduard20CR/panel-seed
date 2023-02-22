@@ -10,6 +10,7 @@ import { ElectronCapacitorApp, setupContentSecurityPolicy, setupReloadWatcher } 
 import { GenerateAngularPanels } from "./generators/panels/angular/generateAngularPanels";
 import { IAngularConfig } from "./shared/interface/angular-config.interface";
 import { exec, execSync } from "child_process";
+import path from "path";
 
 // Graceful handling of unhandled errors.
 unhandled();
