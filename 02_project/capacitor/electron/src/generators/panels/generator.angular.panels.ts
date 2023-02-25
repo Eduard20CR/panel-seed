@@ -1,8 +1,6 @@
 #!/usr/bin/env node
-import { exec } from "child_process";
 import { AngularPanelApp } from "../../apps/panels/app.angular.panels";
 import { IGenerator } from "../../interfaces/generators/interface.IGenerator";
-import { EnvPathHandler } from "../../shared/helpers/envPathHandler";
 import { Executer } from "../../shared/helpers/executer";
 
 const path = require("path");
@@ -12,7 +10,7 @@ const fs = require("fs/promises");
 export class GenerateAngularPanels implements IGenerator {
   _commandsToExec: string[] = [];
 
-  constructor(private angularPanelApp: AngularPanelApp, public _executer: Executer, private _envPaths: EnvPathHandler) {}
+  constructor(private angularPanelApp: AngularPanelApp, public _executer: Executer) {}
 
   async runProject() {
     console.log("starting");
@@ -31,15 +29,9 @@ export class GenerateAngularPanels implements IGenerator {
 
   async runCommands() {
     const commands = this._commandsToExec.join("; ");
-    const env = {
-      PATH: this._envPaths.getPath(),
-    };
-    return await new Promise<string>((resolve, reject) => {
-      exec(commands, { env }, (err) => {
-        if (err) reject(err);
-        resolve("Done");
-      });
-    });
+    await this._executer.runCommands(commands);
+
+    return;
   }
 
   addCommands() {

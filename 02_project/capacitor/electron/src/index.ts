@@ -89,7 +89,10 @@ ipcMain.handle("get-destination-folder", async () => {
 
 ipcMain.handle("generate-angular", async (_, { projectName, projectPath }: IAngularConfig) => {
   try {
-    const angularApp = new GenerateAngularPanels(new AngularPanelApp("", 2, 2, 2, ""), new Executer(), new EnvPathHandler());
+    const angularPanelApp = new AngularPanelApp(projectPath, projectName, 2, 2, 2);
+    const executer = new Executer(new EnvPathHandler());
+
+    const angularApp = new GenerateAngularPanels(angularPanelApp, executer);
     await angularApp.runProject();
     return "Panel Done";
   } catch (error) {

@@ -13,7 +13,7 @@ const fs = require("fs/promises");
 export class GenerateCapacitorPanels implements IGenerator {
   _commandsToExec: string[] = [];
 
-  constructor(private capacitorPanelApp: CapacitorPanelApp, public _executer: Executer, private _envPaths: EnvPathHandler) {}
+  constructor(private capacitorPanelApp: CapacitorPanelApp, public _executer: Executer) {}
 
   async runProject() {
     console.log("starting");
@@ -31,15 +31,9 @@ export class GenerateCapacitorPanels implements IGenerator {
 
   async runCommands() {
     const commands = this._commandsToExec.join("; ");
-    const env = {
-      PATH: this._envPaths.getPath(),
-    };
-    return await new Promise<string>((resolve, reject) => {
-      exec(commands, { env }, (err) => {
-        if (err) reject(err);
-        resolve("Done");
-      });
-    });
+    await this._executer.runCommands(commands);
+
+    return;
   }
 
   addCommands() {
@@ -50,19 +44,11 @@ export class GenerateCapacitorPanels implements IGenerator {
   }
 
   async editFiles() {
-    const angularJsonFile = path.join(this.capacitorPanelApp, "angular.json");
-    const newFileData = await fs.readFile(angularJsonFile, "utf-8");
-
-    const editedFileData = newFileData
-      .replaceAll(/"outputPath": "[^"]*"/gm, '"outputPath": "./../webroot"')
-      .replaceAll(/"scripts": \[((?:\s*"(?:[^"\\]|\\.)*"\s*,\s*)*|(?:\s*))\]/gm, '"scripts": ["node_modules/bootstrap/dist/js/bootstrap.js"]');
-
-    await fs.writeFile(angularJsonFile, editedFileData);
-
     return;
   }
 
   projectAlreadyExists(): boolean {
-    return fsextra.pathExists(this.capacitorPanelApp);
+    const capacitorApp = path.join(this.capacitorPanelApp, "capacitor");
+    return fsextra.pathExists(capacitorApp);
   }
 }
