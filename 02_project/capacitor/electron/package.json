@@ -2,10 +2,7 @@
   "name": "capacitor-app",
   "version": "1.0.0",
   "description": "An Amazing Capacitor App",
-  "author": {
-    "name": "",
-    "email": ""
-  },
+  "author": "",
   "repository": {
     "type": "git",
     "url": ""

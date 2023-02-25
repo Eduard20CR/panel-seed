@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { exec, execSync } from "child_process";
-import { app } from "electron";
+import { exec } from "child_process";
+import { ENV_PATHS } from "./../../../shared/CONFIG/envShell";
 
 const path = require("path");
 const fsextra = require("fs-extra");
@@ -10,33 +10,33 @@ export class GenerateAngularPanels {
   private _commandsToExec: string[] = [];
   private _angularPath: string;
 
-  constructor(private _projectPath: string, private _projectName: string) {
+  constructor(private _projectPath: string, private _projectName: string, private _ENV_PATHS: string) {
     this._angularPath = path.join(this._projectPath, "angular");
   }
 
-  async generateProject() {
+  async runProject() {
     console.log("starting");
+
+    if (await this.projectAlreadyExists()) throw Error("Please delete angular folder in the destionation folder");
+
+    this.addCommands();
+
+    this.addSchematics();
+
+    await this.runCommands();
+
+    await this.editFiles();
+    console.log("ended");
+  }
+
+  private addCommands() {
     this._commandsToExec.push(`cd ${this._projectPath}`);
-
-    if (await this.isAngularProjectInDirectory()) throw Error("Please delete angular folder in the destionation folder");
-
-    const ngBing = path.join("..", "node_modules", ".bin", "ng");
 
     this._commandsToExec.push(`ng new ${this._projectName} --routing --skip-tests --directory=angular --style=scss`);
 
     this._commandsToExec.push(`cd angular`);
 
     this._commandsToExec.push("npm i bootstrap");
-
-    this.addSchematics();
-    console.log("commands added");
-
-    console.log("start commands exec");
-    await this.runCommands();
-    console.log("end commands exec");
-
-    console.log("edit files");
-    await this.editFile();
   }
 
   private addSchematics() {
@@ -44,7 +44,7 @@ export class GenerateAngularPanels {
     this._commandsToExec.push(`ng g panel-seed-test/src/collection.json:panel-seed-template`);
   }
 
-  async editFile() {
+  private async editFiles() {
     const angularJsonFile = path.join(this._angularPath, "angular.json");
 
     const newFileData = await fs.readFile(angularJsonFile, "utf-8");
@@ -58,15 +58,18 @@ export class GenerateAngularPanels {
 
   private async runCommands() {
     const commands = this._commandsToExec.join("; ");
-
     const env = {
-      PATH: `/Users/oscar.vasquez/.rvm/gems/ruby-2.7.6/bin:/Users/oscar.vasquez/.rvm/gems/ruby-2.7.6@global/bin:/Users/oscar.vasquez/.rvm/rubies/ruby-2.7.6/bin:/Users/oscar.vasquez/.nvm/versions/node/v16.15.0/bin:~/Applications/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/oscar.vasquez/.rvm/bin`,
+      PATH: this._ENV_PATHS,
     };
-
-    execSync(commands, { env });
+    return await new Promise<string>((resolve, reject) => {
+      exec(commands, { env }, (err) => {
+        if (err) reject(err);
+        resolve("Done");
+      });
+    });
   }
 
-  private isAngularProjectInDirectory() {
+  private projectAlreadyExists() {
     return fsextra.pathExists(this._angularPath);
   }
 }

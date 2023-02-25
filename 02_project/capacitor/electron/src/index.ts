@@ -1,4 +1,3 @@
-import { Report } from "../assets/magma-panel-report/Report";
 import type { CapacitorElectronConfig } from "@capacitor-community/electron";
 import { getCapacitorElectronConfig, setupElectronDeepLinking } from "@capacitor-community/electron";
 import { dialog, ipcMain, MenuItemConstructorOptions } from "electron";
@@ -9,8 +8,8 @@ import unhandled from "electron-unhandled";
 import { ElectronCapacitorApp, setupContentSecurityPolicy, setupReloadWatcher } from "./setup";
 import { GenerateAngularPanels } from "./generators/panels/angular/generateAngularPanels";
 import { IAngularConfig } from "./shared/interface/angular-config.interface";
-import { exec, execSync } from "child_process";
-import path from "path";
+import { ENV_PATHS } from "./shared/CONFIG/envShell";
+const fs = require("fs-extra");
 
 // Graceful handling of unhandled errors.
 unhandled();
@@ -87,10 +86,16 @@ ipcMain.handle("get-destination-folder", async () => {
 
 ipcMain.handle("generate-angular", async (_, { projectName, projectPath }: IAngularConfig) => {
   try {
-    const angularApp = new GenerateAngularPanels(projectPath, projectName);
-    await angularApp.generateProject();
+    const angularApp = new GenerateAngularPanels(projectPath, projectName, ENV_PATHS);
+    await angularApp.runProject();
     return "Panel Done";
   } catch (error) {
     throw error;
   }
 });
+
+// try {
+//   fs.copy(`${app.getAppPath()}/assets/appIcon.png`, `${app.getPath("downloads")}/assets/appIcon.png`);
+// } catch (error) {
+//   console.log(error);
+// }

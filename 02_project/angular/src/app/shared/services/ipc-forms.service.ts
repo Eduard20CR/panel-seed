@@ -18,6 +18,7 @@ export class IpcFormsService {
 
   async generateAngular(angularConfig: IAngularConfig) {
     const res = await (<any>window).IPC_FORMS.generateAngular(angularConfig);
+
     console.log(res);
   }
 }
