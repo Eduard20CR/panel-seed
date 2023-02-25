@@ -8,10 +8,10 @@ import unhandled from "electron-unhandled";
 import { ElectronCapacitorApp, setupContentSecurityPolicy, setupReloadWatcher } from "./setup";
 import { GenerateAngularPanels } from "./generators/panels/generator.angular.panels";
 import { IAngularConfig } from "./interfaces/angular-config.interface";
-import { ENV_PATHS } from "./shared/CONFIG/envShell";
 import { Executer } from "./shared/helpers/executer";
 import { AngularPanelApp } from "./apps/panels/app.angular.panels";
 import { EnvPathHandler } from "./shared/helpers/envPathHandler";
+import { routerGenerateAngularPanel } from "./routers/generators/generators.router";
 const fs = require("fs-extra");
 
 // Graceful handling of unhandled errors.
@@ -87,18 +87,8 @@ ipcMain.handle("get-destination-folder", async () => {
   return filePaths;
 });
 
-ipcMain.handle("generate-angular", async (_, { projectName, projectPath }: IAngularConfig) => {
-  try {
-    const angularPanelApp = new AngularPanelApp(projectPath, projectName, 2, 2, 2);
-    const executer = new Executer(new EnvPathHandler());
-
-    const angularApp = new GenerateAngularPanels(angularPanelApp, executer);
-    await angularApp.runProject();
-    return "Panel Done";
-  } catch (error) {
-    throw error;
-  }
-});
+// GENERATORS
+ipcMain.handle("generate-angular", routerGenerateAngularPanel);
 
 // try {
 //   fs.copy(`${app.getAppPath()}/assets/appIcon.png`, `${app.getPath("downloads")}/assets/appIcon.png`);
