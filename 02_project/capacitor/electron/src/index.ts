@@ -6,9 +6,12 @@ import electronIsDev from "electron-is-dev";
 import unhandled from "electron-unhandled";
 
 import { ElectronCapacitorApp, setupContentSecurityPolicy, setupReloadWatcher } from "./setup";
-import { GenerateAngularPanels } from "./generators/panels/angular/generateAngularPanels";
-import { IAngularConfig } from "./shared/interface/angular-config.interface";
+import { GenerateAngularPanels } from "./generators/panels/generator.angular.panels";
+import { IAngularConfig } from "./interfaces/angular-config.interface";
 import { ENV_PATHS } from "./shared/CONFIG/envShell";
+import { Executer } from "./shared/helpers/executer";
+import { AngularPanelApp } from "./apps/panels/app.angular.panels";
+import { EnvPathHandler } from "./shared/helpers/envPathHandler";
 const fs = require("fs-extra");
 
 // Graceful handling of unhandled errors.
@@ -86,7 +89,7 @@ ipcMain.handle("get-destination-folder", async () => {
 
 ipcMain.handle("generate-angular", async (_, { projectName, projectPath }: IAngularConfig) => {
   try {
-    const angularApp = new GenerateAngularPanels(projectPath, projectName, ENV_PATHS);
+    const angularApp = new GenerateAngularPanels(new AngularPanelApp("", 2, 2, 2, ""), new Executer(), new EnvPathHandler());
     await angularApp.runProject();
     return "Panel Done";
   } catch (error) {

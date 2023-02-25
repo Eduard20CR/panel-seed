@@ -1,7 +1,7 @@
 import { randomBytes } from "crypto";
 import { ipcRenderer, contextBridge } from "electron";
 import { EventEmitter } from "events";
-import { IAngularConfig } from "../shared/interface/angular-config.interface";
+import { IAngularConfig } from "../interfaces/angular-config.interface";
 
 ////////////////////////////////////////////////////////
 // eslint-disable-next-line @typescript-eslint/no-var-requires
