@@ -13,7 +13,7 @@ export class AngularPanelApp implements IAngularPanel {
   ) {
     this.angularPath = path.join(this.projectPath, "angular");
 
-    if (this.vh) {
+    if (this.vh && this.vw) {
       this.panelOrientation = vh < vw ? "landscape" : "portrait";
     }
   }
