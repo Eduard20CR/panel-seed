@@ -9,7 +9,7 @@ export class IpcFormsService {
 
   async getDestinationFolder() {
     try {
-      const folder = await (<any>window).IPC_FORMS.getDestinationFolder();
+      const folder = await (<any>window).UTILS.getDestinationFolder();
       return folder[0] as string;
     } catch (error) {
       throw new Error('Se jodio');
@@ -17,7 +17,9 @@ export class IpcFormsService {
   }
 
   async generateAngular(angularConfig: IAngularConfig) {
-    const res = await (<any>window).IPC_FORMS.generateAngular(angularConfig);
+    const res = await (<any>window).GENERATORS.generateAngularPanel(
+      angularConfig
+    );
 
     console.log(res);
   }

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import { AngularPanelApp } from "../../apps/panels/app.angular.panels";
+import { AngularPanelApp } from "../../models/panels/model.angular.panels";
 import { IGenerator } from "../../interfaces/generators/interface.IGenerator";
-import { Executer } from "../../shared/helpers/executer";
+import { Executer } from "../../helpers/executer";
 
 const path = require("path");
 const fsextra = require("fs-extra");
@@ -35,8 +35,10 @@ export class GenerateAngularPanels implements IGenerator {
   }
 
   addCommands() {
-    this._commandsToExec.push(`cd ${this.angularPanelApp._projectPath}`);
-    this._commandsToExec.push(`ng new ${this.angularPanelApp._projectName} --routing --skip-tests --directory=angular --style=scss`);
+    this._commandsToExec.push(`cd ${this.angularPanelApp.projectPath}`);
+    this._commandsToExec.push(
+      `ng new ${this.angularPanelApp.projectName} --routing --skip-tests --directory=angular --style=scss`
+    );
     this._commandsToExec.push(`cd angular`);
     this._commandsToExec.push("npm i bootstrap");
   }
@@ -47,12 +49,15 @@ export class GenerateAngularPanels implements IGenerator {
   }
 
   async editFiles() {
-    const angularJsonFile = path.join(this.angularPanelApp._angularPath, "angular.json");
+    const angularJsonFile = path.join(this.angularPanelApp.angularPath, "angular.json");
     const newFileData = await fs.readFile(angularJsonFile, "utf-8");
 
     const editedFileData = newFileData
       .replaceAll(/"outputPath": "[^"]*"/gm, '"outputPath": "./../webroot"')
-      .replaceAll(/"scripts": \[((?:\s*"(?:[^"\\]|\\.)*"\s*,\s*)*|(?:\s*))\]/gm, '"scripts": ["node_modules/bootstrap/dist/js/bootstrap.js"]');
+      .replaceAll(
+        /"scripts": \[((?:\s*"(?:[^"\\]|\\.)*"\s*,\s*)*|(?:\s*))\]/gm,
+        '"scripts": ["node_modules/bootstrap/dist/js/bootstrap.js"]'
+      );
 
     await fs.writeFile(angularJsonFile, editedFileData);
 
@@ -60,6 +65,6 @@ export class GenerateAngularPanels implements IGenerator {
   }
 
   projectAlreadyExists(): boolean {
-    return fsextra.pathExists(this.angularPanelApp._angularPath);
+    return fsextra.pathExists(this.angularPanelApp.angularPath);
   }
 }

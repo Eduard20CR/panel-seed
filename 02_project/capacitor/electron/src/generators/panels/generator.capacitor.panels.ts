@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import { exec } from "child_process";
-import { CapacitorPanelApp } from "../../apps/panels/app.capacitor.panels";
+import { CapacitorPanelApp } from "../../models/panels/model.capacitor.panels";
 
 import { IGenerator } from "../../interfaces/generators/interface.IGenerator";
-import { EnvPathHandler } from "../../shared/helpers/envPathHandler";
-import { Executer } from "../../shared/helpers/executer";
+import { EnvPathHandler } from "../../helpers/envPathHandler";
+import { Executer } from "../../helpers/executer";
 
 const path = require("path");
 const fsextra = require("fs-extra");
@@ -38,7 +38,9 @@ export class GenerateCapacitorPanels implements IGenerator {
 
   addCommands() {
     this._commandsToExec.push(`cd ${this.capacitorPanelApp._projectPath}`);
-    this._commandsToExec.push(`ng new ${this.capacitorPanelApp._projectName} --routing --skip-tests --directory=angular --style=scss`);
+    this._commandsToExec.push(
+      `ng new ${this.capacitorPanelApp._projectName} --routing --skip-tests --directory=angular --style=scss`
+    );
     this._commandsToExec.push(`cd angular`);
     this._commandsToExec.push("npm i bootstrap");
   }

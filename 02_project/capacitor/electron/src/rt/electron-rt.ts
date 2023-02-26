@@ -1,7 +1,7 @@
 import { randomBytes } from "crypto";
 import { ipcRenderer, contextBridge } from "electron";
 import { EventEmitter } from "events";
-import { IAngularConfig } from "../interfaces/angular-config.interface";
+import { IAngularPanel } from "../interfaces/models/angular-config.interface";
 
 ////////////////////////////////////////////////////////
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -17,7 +17,9 @@ Object.keys(plugins).forEach((pluginKey) => {
   Object.keys(plugins[pluginKey])
     .filter((className) => className !== "default")
     .forEach((classKey) => {
-      const functionList = Object.getOwnPropertyNames(plugins[pluginKey][classKey].prototype).filter((v) => v !== "constructor");
+      const functionList = Object.getOwnPropertyNames(plugins[pluginKey][classKey].prototype).filter(
+        (v) => v !== "constructor"
+      );
 
       if (!contextApi[classKey]) {
         contextApi[classKey] = {};
@@ -32,7 +34,8 @@ Object.keys(plugins).forEach((pluginKey) => {
       // Events
       if (plugins[pluginKey][classKey].prototype instanceof EventEmitter) {
         const listeners: { [key: string]: { type: string; listener: (...args: any[]) => void } } = {};
-        const listenersOfTypeExist = (type) => !!Object.values(listeners).find((listenerObj) => listenerObj.type === type);
+        const listenersOfTypeExist = (type) =>
+          !!Object.values(listeners).find((listenerObj) => listenerObj.type === type);
 
         Object.assign(contextApi[classKey], {
           addListener(type: string, callback: (...args) => void) {
@@ -86,21 +89,23 @@ contextBridge.exposeInMainWorld("CapacitorCustomPlatform", {
 });
 ////////////////////////////////////////////////////////
 
-contextBridge.exposeInMainWorld("IPC_FORMS", {
+contextBridge.exposeInMainWorld("UTILS", {
   getDestinationFolder: () => ipcRenderer.invoke("get-destination-folder"),
-  generateAngular: (AngularConfig: IAngularConfig) => ipcRenderer.invoke("generate-angular", AngularConfig),
+});
+contextBridge.exposeInMainWorld("GENERATORS", {
+  generateAngularPanel: (AngularConfig: IAngularPanel) => ipcRenderer.invoke("generate-angular-panels", AngularConfig),
 });
 
-contextBridge.exposeInMainWorld("API_ELECTRON", {
-  name: "electron",
-  plugins: contextApi,
-  on: (channel: any, listener: any) => {
-    ipcRenderer.on(channel, listener);
-  },
-  send: (channel: any, ...args: any) => {
-    ipcRenderer.send(channel, ...args);
-  },
-  removeAllListeners: (channel: any) => {
-    ipcRenderer.removeAllListeners(channel);
-  },
-});
+// contextBridge.exposeInMainWorld("API_ELECTRON", {
+//   name: "electron",
+//   plugins: contextApi,
+//   on: (channel: any, listener: any) => {
+//     ipcRenderer.on(channel, listener);
+//   },
+//   send: (channel: any, ...args: any) => {
+//     ipcRenderer.send(channel, ...args);
+//   },
+//   removeAllListeners: (channel: any) => {
+//     ipcRenderer.removeAllListeners(channel);
+//   },
+// });

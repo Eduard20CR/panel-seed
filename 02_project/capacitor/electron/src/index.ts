@@ -1,18 +1,15 @@
 import type { CapacitorElectronConfig } from "@capacitor-community/electron";
 import { getCapacitorElectronConfig, setupElectronDeepLinking } from "@capacitor-community/electron";
-import { dialog, ipcMain, MenuItemConstructorOptions } from "electron";
+import { ipcMain, MenuItemConstructorOptions } from "electron";
 import { app, MenuItem } from "electron";
 import electronIsDev from "electron-is-dev";
 import unhandled from "electron-unhandled";
-
 import { ElectronCapacitorApp, setupContentSecurityPolicy, setupReloadWatcher } from "./setup";
-import { GenerateAngularPanels } from "./generators/panels/generator.angular.panels";
-import { IAngularConfig } from "./interfaces/angular-config.interface";
-import { Executer } from "./shared/helpers/executer";
-import { AngularPanelApp } from "./apps/panels/app.angular.panels";
-import { EnvPathHandler } from "./shared/helpers/envPathHandler";
-import { routerGenerateAngularPanel } from "./routers/generators/generators.router";
-const fs = require("fs-extra");
+import {
+  routerGenerateAngularPanel,
+  routerGenerateCapacitorPanel,
+} from "./routers/generators/generators-panels.router";
+import { routerGetDestinationFolder } from "./routers/utils/utils.router";
 
 // Graceful handling of unhandled errors.
 unhandled();
@@ -53,7 +50,6 @@ if (electronIsDev) {
   // Initialize our app, build windows, and load content.
   await myCapacitorApp.init();
   // Check for updates if we are in a packaged app.
-  //autoUpdater.checkForUpdatesAndNotify();
 })();
 
 // Handle when all of our windows are close (platforms have their own expectations).
@@ -80,18 +76,9 @@ ipcMain.on("quit-application", () => {
   app.quit();
 });
 
-ipcMain.handle("get-destination-folder", async () => {
-  const { canceled, filePaths } = await dialog.showOpenDialog({ properties: ["openDirectory"] });
-  if (canceled) throw new Error("Somthing happened");
-
-  return filePaths;
-});
+// UTILS
+ipcMain.handle("get-destination-folder", routerGetDestinationFolder);
 
 // GENERATORS
-ipcMain.handle("generate-angular", routerGenerateAngularPanel);
-
-// try {
-//   fs.copy(`${app.getAppPath()}/assets/appIcon.png`, `${app.getPath("downloads")}/assets/appIcon.png`);
-// } catch (error) {
-//   console.log(error);
-// }
+ipcMain.handle("generate-angular-panels", routerGenerateAngularPanel);
+ipcMain.handle("generate-capacitor-panels", routerGenerateCapacitorPanel);

@@ -1,4 +1,4 @@
-import { Executer } from "../../shared/helpers/executer";
+import { Executer } from "../../helpers/executer";
 
 export interface IGenerator {
   _commandsToExec: string[];
