@@ -8,15 +8,15 @@
 //       }
 //     }
 //   }
-@use 'sass:math';
+@use "sass:math";
 
-@function toVW($inPX: null, $screen: 1920) {
+@function toVW($inPX: null, $screen: 1300) {
   $inVW: math.div($inPX, $screen) * 100;
   $val: #{$inVW}vw;
   @return $val;
 }
 
-@function toVH($inPX: null, $screen: 1080) {
+@function toVH($inPX: null, $screen: 900) {
   $inVW: math.div($inPX, $screen) * 100;
   $val: #{$inVW}vh;
   @return $val;

@@ -12,6 +12,7 @@ import { TrackingLabelsModule } from './shared/components/tracking-labels-module
 import { DetectActualPathDirective } from './shared/directives/detect-actual-path.directive';
 import { IsiModule } from './shared/components/isi/isi.module';
 import { ModalsModule } from './shared/components/modals/modals.module';
+import { NavigationModule } from './navigation/navigation.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ModalsModule } from './shared/components/modals/modals.module';
     TrackingLabelsModule,
     IsiModule,
     ModalsModule,
+    NavigationModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
