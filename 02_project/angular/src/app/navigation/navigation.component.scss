@@ -1,0 +1,22 @@
+@import "./../../assets/scss/custom";
+
+.navigation {
+  width: toREM(104);
+  height: 100vh;
+  background-color: #00adb5;
+  transition: width 0.3s;
+  &:hover {
+    width: toREM(402);
+  }
+  &__primaryList li {
+    & > ul {
+      display: none;
+    }
+    &:hover > ul {
+      display: block;
+    }
+  }
+  &__secondaryList {
+    margin-left: toREM(30);
+  }
+}

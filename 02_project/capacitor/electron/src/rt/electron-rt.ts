@@ -99,9 +99,9 @@ contextBridge.exposeInMainWorld("GENERATORS", {
 // contextBridge.exposeInMainWorld("API_ELECTRON", {
 //   name: "electron",
 //   plugins: contextApi,
-//   on: (channel: any, listener: any) => {
-//     ipcRenderer.on(channel, listener);
-//   },
+// on: (channel: any, listener: any) => {
+//   ipcRenderer.on(channel, listener);
+// },
 //   send: (channel: any, ...args: any) => {
 //     ipcRenderer.send(channel, ...args);
 //   },
