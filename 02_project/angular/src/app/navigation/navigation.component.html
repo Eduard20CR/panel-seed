@@ -1,33 +1,26 @@
-<nav class="navigation text-white">
-  <a class="text-white d-block pt-5" href="">MOAJ</a>
+<nav
+  class="navigation text-white d-flex flex-column"
+  [ngClass]="{ active: isOpen }"
+>
+  <a class="text-white d-block my-5 w-100 fw-bold" href="">MOAJ</a>
 
-  <ul class="navigation__primaryList pt-5 list-unstyled">
-    <li role="link">
-      Panels
+  <ul
+    class="navigation__primaryList list-unstyled w-100 mb-0"
+    *ngFor="let menuTab of menu"
+  >
+    <li
+      class="navigation__primaryListItem"
+      (click)="onSelectTab(menuTab.tabName)"
+      [ngClass]="{ active: tabName == menuTab.tabName }"
+    >
+      <p class="navigation__title px-2 text-nowrap">
+        <span class="navigation__icon d-inline-block fw-bold">@</span>
+        <span class="navigation__titleDescription d-inline-block ms-3"
+          >&nbsp;{{ menuTab.title }}</span
+        >
+      </p>
       <ul class="navigation__secondaryList list-unstyled">
-        <li>Angular</li>
-        <li>Electron</li>
-        <li>Ios</li>
-        <li>Components</li>
-      </ul>
-    </li>
-    <li>
-      Websites
-      <ul class="navigation__secondaryList list-unstyled">
-        <li>Angular</li>
-        <li>Components</li>
-      </ul>
-    </li>
-    <li>
-      Components
-      <ul class="navigation__secondaryList list-unstyled">
-        <li>Modal</li>
-      </ul>
-    </li>
-    <li>
-      Utilities
-      <ul class="navigation__secondaryList list-unstyled">
-        <li>Find Pics</li>
+        <li *ngFor="let subTab of menuTab.childTabs">{{ subTab.name }}</li>
       </ul>
     </li>
   </ul>
