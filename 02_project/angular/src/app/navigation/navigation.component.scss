@@ -1,10 +1,13 @@
 @import "./../../assets/scss/custom";
 
+$animation-open-speed: 0.5s;
+$animation-closing-speed: 0.25s;
+
 .navigation {
   width: toREM(104);
   height: 100vh;
   background-color: #00adb5;
-  transition: width 0.5s;
+  transition: width $animation-open-speed;
 
   &:hover {
     width: toREM(402);
@@ -29,7 +32,7 @@
   &__primaryListItem {
     &.active {
       & .navigation__secondaryList {
-        transition: max-height 0.5s ease-in;
+        transition: max-height $animation-open-speed ease-in;
         max-height: toREM(1000);
       }
       & > .navigation__titleDescription {
@@ -44,17 +47,19 @@
     padding-top: toREM(17);
     border-radius: toREM(7);
     background-color: #393e46;
-    margin-bottom: toREM(2);
-    margin-top: toREM(2);
+    margin-bottom: toREM(1);
+    margin-top: toREM(1);
 
     & .navigation__icon {
       transform: translateX(toREM(29));
-      transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+      transition: transform $animation-open-speed ease-out,
+        opacity $animation-open-speed ease-out;
     }
     & .navigation__titleDescription {
       transform: translateX(toREM(29));
       opacity: 0;
-      transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+      transition: transform $animation-open-speed ease-out,
+        opacity $animation-open-speed ease-out;
     }
   }
 
@@ -66,6 +71,6 @@
     margin-left: toREM(50);
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.15s ease-out;
+    transition: max-height $animation-closing-speed ease-out;
   }
 }
