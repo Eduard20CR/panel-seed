@@ -59,7 +59,36 @@
         data-bs-interval="false"
       >
         <div class="carousel-inner">
-          <div class="carousel-item active"></div>
+          <div class="carousel-item active">
+            <div class="d-flex justify-content-center align-items-center ">
+                  <div
+              class="carousel-content d-flex align-items-center"
+            >
+              <form [formGroup]="tipesForm" (ngSubmit)="tipeProjectSelected()">
+                <div  *ngFor="let tipe of projectTipes; let i = index" class="form-check">
+                  <input 
+                    class="form-check-input"      
+                    type="checkbox"
+                    formArrayName="selectedProjects"
+                    [value]="tipe.value"
+                    [id]="tipe.value"
+                    (change)="onCheckboxChange($event)">
+                  <label class="form-check-label" [for]="tipe.value">
+                    {{ tipe.name }}
+                  </label>
+                </div>
+                <div *ngIf='isProjectTipeSelected' class="error-message mt-3">
+                  Please select one or more thank one.
+                </div>
+
+                <button 
+                class="btn btn-primary mt-3"type="submit">Siguiente
+                </button>
+              </form>
+            </div>
+            </div>
+        
+          </div>
           <div class="carousel-item">
             <div class="w-100 h-100 d-flex justify-content-center">
               <div class="carousel-content">
@@ -95,14 +124,14 @@
                         </div>
                       </ng-container>
                       <label for="basic-addon1" class="form-label"
-                        >Color picker</label
+                        >Path</label
                       >
                       <div class="input-group mt-0">
                         <span
                           class="input-group-text"
                           id="basic-addon1"
                           (click)="onSelectFolder()"
-                          >Select File</span
+                          >Select Path</span
                         >
                         <input
                           id="route"
@@ -129,13 +158,15 @@
                       </div>
                     </div>
                   </div>
-                  <button
+                  <!--                  
+                    <button
                     type="submit"
                     class="btn btn-primary"
                     (click)="onGenerateAngular()"
                   >
                     Registrar Herramienta
-                  </button>
+                  </button>-->
+
                 </form>
               </div>
             </div>
@@ -146,6 +177,7 @@
       </div>
     </div>
     <div
+    *ngIf='currentItem>1'
       class="buttons-section d-flex justify-content-center align-items-center"
     >
       <button
@@ -155,7 +187,7 @@
         data-bs-toggle="button"
         aria-pressed="false"
       >
-        Prev
+        Back
       </button>
       <button
         type="button"

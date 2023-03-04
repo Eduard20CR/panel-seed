@@ -4,7 +4,7 @@ export class EnvPathHandler {
   writePath() {}
 
   getPath(): string {
-    return "/Users/oscar.vasquez/.rvm/gems/ruby-2.7.6/bin:/Users/oscar.vasquez/.rvm/gems/ruby-2.7.6@global/bin:/Users/oscar.vasquez/.rvm/rubies/ruby-2.7.6/bin:/Users/oscar.vasquez/.nvm/versions/node/v16.15.0/bin:~/Applications/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/oscar.vasquez/.rvm/bin";
+    return "/Users/maikol-andres.chinch/.rvm/gems/ruby-2.7.5/bin:/Users/maikol-andres.chinch/.rvm/gems/ruby-2.7.5@global/bin:/Users/maikol-andres.chinch/.rvm/rubies/ruby-2.7.5/bin:/Users/maikol-andres.chinch/.nvm/versions/node/v14.19.0/bin:~/Applications/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/maikol-andres.chinch/.rvm/bin";
   }
   existPath(): boolean {
     return true;

@@ -37,9 +37,24 @@
       }
     }
   }
+  .is-invalid{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: toREM(2) solid red !important;
+  }
+
+  .is-valid{
+    border: none;
+  }
+
   .buttons-section{
     height: toREM(100);
     //background-color: aquamarine;
   }
 
+  .error-message{
+    font-size: toREM(20);
+    color: red;
+  }
 }
