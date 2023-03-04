@@ -1,0 +1,45 @@
+@import "./../../../../assets/scss/custom";
+
+.input-group-text {
+  cursor: pointer;
+}
+
+.content{
+  width: 100%;
+  height: toREM(800);
+//  background-color: aqua;
+  .progress{
+    height: toREM(100);
+    .icon-container{
+      width: toREM(40);
+      height: toREM(40);
+      .slide-active{
+        fill: $primary;
+      }
+      svg{
+        width: 100%;
+        height: 100%;
+        fill: $black;
+      }      
+    }
+
+ //   background-color: aquamarine;
+  }
+  .carousel-body{
+    height: toREM(600);
+
+    .carousel-content{
+      width: toREM(700);
+      height: toREM(600);
+      input{
+        border-radius: 0;
+        border-bottom: toREM(2) solid $primary;
+      }
+    }
+  }
+  .buttons-section{
+    height: toREM(100);
+    //background-color: aquamarine;
+  }
+
+}
