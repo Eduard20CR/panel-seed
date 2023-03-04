@@ -1,7 +1,10 @@
 import { randomBytes } from "crypto";
 import { ipcRenderer, contextBridge } from "electron";
 import { EventEmitter } from "events";
-import { IAngularPanel } from "../interfaces/models/angular-config.interface";
+import { IAngularPanel } from "../interfaces/models/panels/angular-config.interface";
+import { ICapacitorPanel } from "../interfaces/models/panels/capacitor-config.interface";
+import { IElectronPanel } from "../interfaces/models/panels/electron-config.interface";
+import { IIosPanel } from "../interfaces/models/panels/ios-config.interface";
 
 ////////////////////////////////////////////////////////
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -92,8 +95,24 @@ contextBridge.exposeInMainWorld("CapacitorCustomPlatform", {
 contextBridge.exposeInMainWorld("UTILS", {
   getDestinationFolder: () => ipcRenderer.invoke("get-destination-folder"),
 });
-contextBridge.exposeInMainWorld("GENERATORS", {
-  generateAngularPanel: (AngularConfig: IAngularPanel) => ipcRenderer.invoke("generate-angular-panels", AngularConfig),
+
+contextBridge.exposeInMainWorld("IPC_GENERATOR_PANELS", {
+  angularPanel: (AngularConfig: IAngularPanel) => ipcRenderer.invoke("generate-angular-panels", AngularConfig),
+  electronPanel: (ElectronConfig: IElectronPanel) => ipcRenderer.invoke("generate-electron-panels", ElectronConfig),
+  iosPanel: (IosConfig: IIosPanel) => ipcRenderer.invoke("generate-ios-panels", IosConfig),
+  capacitorPanel: (CapacitorConfig: ICapacitorPanel) =>
+    ipcRenderer.invoke("generate-capacitor-panels", CapacitorConfig),
+});
+
+contextBridge.exposeInMainWorld("IPC_GENERATOR_WEBSITES", {
+  angularPanel: (AngularConfig: IAngularPanel) => ipcRenderer.invoke("generate-angular-websites", AngularConfig),
+});
+
+contextBridge.exposeInMainWorld("IPC_GENERATOR_COMPONENTS", {
+  panelsComponent: (componentID: string, componentConfig: any) =>
+    ipcRenderer.invoke("generate-component-panels", componentID, componentConfig),
+  websitesComponent: (componentID: string, componentConfig: any) =>
+    ipcRenderer.invoke("generate-component-websites", componentID, componentConfig),
 });
 
 // contextBridge.exposeInMainWorld("API_ELECTRON", {

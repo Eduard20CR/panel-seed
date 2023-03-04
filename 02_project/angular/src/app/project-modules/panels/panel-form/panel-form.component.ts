@@ -84,26 +84,24 @@ export class PanelFormComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {}
   ngAfterViewInit(): void {
-
-    this.myCarousel = document.querySelector('#carouselPanel')
+    this.myCarousel = document.querySelector('#carouselPanel');
     this.carousel = new Carousel(this.myCarousel, {
       interval: false,
-    })
-
+    });
   }
 
   next() {
-    if(this.currentItem<2){
-      this.carousel.next()
-        this.currentItem = this.currentItem + 1;
+    if (this.currentItem < 2) {
+      this.carousel.next();
+      this.currentItem = this.currentItem + 1;
     }
   }
 
   prev() {
-    if(this.currentItem>1){
-      this.carousel.prev()
+    if (this.currentItem > 1) {
+      this.carousel.prev();
       this.currentItem = this.currentItem - 1;
-   }
+    }
   }
 
   onSelectFolder() {
@@ -122,7 +120,14 @@ export class PanelFormComponent implements OnInit, AfterViewInit {
     const projectPath = this.registroPanelForm.get('route')?.value;
 
     this.ipcForms
-      .generateAngular({ projectName, projectPath })
+      .generateAngular({
+        projectName,
+        projectPath,
+        fontSize: 0,
+        panelOrientation: '',
+        vh: 0,
+        vw: 0,
+      })
       .then(() => {
         console.log('Done');
       })
@@ -183,9 +188,9 @@ export class PanelFormComponent implements OnInit, AfterViewInit {
     this.registroPanelForm.reset();
   }
 
-  showslide:boolean=false;
+  showslide: boolean = false;
 
-  show(){
-    this.showslide= !this.showslide;
+  show() {
+    this.showslide = !this.showslide;
   }
 }

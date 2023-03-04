@@ -1,15 +1,11 @@
 import path from "path";
+import { IElectronPanel } from "../../interfaces/models/panels/electron-config.interface";
 
-export class ElectronPanelApp {
-  public _capacitorPath: string;
-  public _electronPath: string;
-  constructor(
-    public _projectPath: string,
-    public _projectName: string,
-    public _brand: string,
-    public _timezone: string
-  ) {
-    this._capacitorPath = path.join(this._projectPath, "capacitor");
-    this._electronPath = path.join(this._capacitorPath, "electron");
+export class ElectronPanelApp implements IElectronPanel {
+  public capacitorPath: string;
+  public electronPath: string;
+  constructor(public projectPath: string, public projectName: string, public brand: string, public timezone: string) {
+    this.capacitorPath = path.join(this.projectPath, "capacitor");
+    this.electronPath = path.join(this.capacitorPath, "electron");
   }
 }

@@ -1,3 +1,5 @@
-export class IosPanelApp {
-  constructor(public _projectPath: string, public _projectName: string, public _brand: string) {}
+import { IIosPanel } from "../../interfaces/models/panels/ios-config.interface";
+
+export class IosPanelApp implements IIosPanel {
+  constructor(public projectPath: string, public projectName: string, public brand: string) {}
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IAngularConfig } from '../interface/angular-config.interface';
+import { IAngularPanel } from '../interface/panels/angular-config.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class IpcFormsService {
     }
   }
 
-  async generateAngular(angularConfig: IAngularConfig) {
+  async generateAngular(angularConfig: IAngularPanel) {
     const res = await (<any>window).GENERATORS.generateAngularPanel(
       angularConfig
     );

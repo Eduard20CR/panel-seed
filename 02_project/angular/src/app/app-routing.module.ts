@@ -5,8 +5,7 @@ const routes: Routes = [
   {
     path: 'panel-generator',
     loadChildren: async () =>
-      (await import('./project-modules/panels/panels.module'))
-        .PanelsModule,
+      (await import('./project-modules/panels/panels.module')).PanelsModule,
   },
   {
     path: '**',
