@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { IpcFormsService } from 'src/app/shared/services/ipc-forms.service';
 import Carousel from 'bootstrap/js/dist/carousel';
 import * as $ from 'jquery';
@@ -71,16 +71,30 @@ export class PanelFormComponent implements OnInit, AfterViewInit {
   registroPanelForm: FormGroup = this.fb.group({
     name: ['', [Validators.required]],
     hight: ['', [Validators.required]],
-    witdh: ['', [Validators.required]],
+    width: ['', [Validators.required]],
     route: ['', [Validators.required]],
   });
+
+  projectTipes: Array<any> = [
+    { name: 'Electron', value: 'electron' },
+    { name: 'IOS', value: 'ios' },
+  ];
+  isProjectTipeSelected = false;
+
+  curretnOptios: string[]=[];
+
 
   myCarousel: any;
   carousel: any;
   carouselItems = 2;
   currentItem = 1;
+  tipesForm: FormGroup;
+  constructor(private ipcForms: IpcFormsService, private fb: FormBuilder) {
 
-  constructor(private ipcForms: IpcFormsService, private fb: FormBuilder) {}
+    this.tipesForm = fb.group({
+      selectedProjects:  new FormArray([])
+     });
+  }
 
   ngOnInit(): void {}
   ngAfterViewInit(): void {
@@ -103,6 +117,28 @@ export class PanelFormComponent implements OnInit, AfterViewInit {
       this.currentItem = this.currentItem - 1;
     }
   }
+
+  onCheckboxChange(event: any) {
+    const selectedProjects= (this.tipesForm.controls['selectedProjects'] as FormArray);
+    if (event.target.checked) {
+      selectedProjects.push(new FormControl(event.target.value));
+    } else {
+      const index = selectedProjects.controls
+      .findIndex(x => x.value === event.target.value);
+      selectedProjects.removeAt(index);
+    }
+  }
+  tipeProjectSelected() {
+    if(this.tipesForm.value.selectedProjects.length>0){
+      this.curretnOptios = this.tipesForm.value;
+      this.next();
+      this.isProjectTipeSelected = false;
+    }else{
+      this.isProjectTipeSelected  = true;
+    }
+
+  }
+
 
   onSelectFolder() {
     this.ipcForms
@@ -135,6 +171,7 @@ export class PanelFormComponent implements OnInit, AfterViewInit {
         console.log(err);
       });
   }
+
 
   registrarHerramienta() {
     if (this.registroPanelForm.valid) {
