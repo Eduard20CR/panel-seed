@@ -15,26 +15,32 @@ export class NavigationComponent implements OnInit {
       tabName: 'panels',
       title: 'Panels',
       childTabs: [
-        { name: 'Angular' },
-        { name: 'Electron' },
-        { name: 'Ios' },
-        { name: 'Components' },
+        { name: 'Angular', icon: 'angular' },
+        { name: 'Electron', icon: 'electron' },
+        { name: 'Ios', icon: 'ios' },
+        { name: 'Components', icon: 'components' },
       ],
     },
     {
       tabName: 'websites',
       title: 'Websites',
-      childTabs: [{ name: 'Angular' }, { name: 'Components' }],
+      childTabs: [
+        { name: 'Angular', icon: 'angular' },
+        { name: 'Components', icon: 'components' },
+      ],
     },
     {
       tabName: 'components',
       title: 'Components',
-      childTabs: [{ name: 'Angular' }, { name: 'Websites' }],
+      childTabs: [
+        { name: 'Panels', icon: 'panels' },
+        { name: 'Websites', icon: 'websites' },
+      ],
     },
     {
       tabName: 'utilities',
       title: 'Utilities',
-      childTabs: [{ name: 'Find Pics' }],
+      childTabs: [{ name: 'Find Pics', icon: 'find_pics' }],
     },
   ];
 
