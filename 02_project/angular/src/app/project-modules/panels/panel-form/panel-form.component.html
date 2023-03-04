@@ -1,24 +1,53 @@
-
-<div class="containr-fluid h-100 d-flex align-items-center ">
+<div class="containr-fluid h-100 d-flex align-items-center">
   <div class="content">
-    <div class="progress d-flex justify-content-center align-items-center">
-      
-      <div class="icon-container">
-        <svg [ngClass]="{'slide-active': currentItem==1 }" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-1-circle" viewBox="0 0 16 16">
-        <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383h1.312Z"/>
-      </svg> 
+    <div class="progress ">
+      <div class="steps w-100 h-100 d-flex justify-content-center align-items-center">
+        <div class="icon-container">
+          <svg
+            [ngClass]="{ 'slide-active': currentItem == 1 }"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-1-circle"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383h1.312Z"
+            />
+          </svg>
+        </div>
+        <div class="icon-container">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-dash-lg"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"
+            />
+          </svg>
+        </div>
+        <div class="icon-container">
+          <svg
+            [ngClass]="{ 'slide-active': currentItem == 2 }"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-2-circle"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM6.646 6.24v.07H5.375v-.064c0-1.213.879-2.402 2.637-2.402 1.582 0 2.613.949 2.613 2.215 0 1.002-.6 1.667-1.287 2.43l-.096.107-1.974 2.22v.077h3.498V12H5.422v-.832l2.97-3.293c.434-.475.903-1.008.903-1.705 0-.744-.557-1.236-1.313-1.236-.843 0-1.336.615-1.336 1.306Z"
+            />
+          </svg>
+        </div>
       </div>
-      <div class="icon-container">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"/>
-      </svg>
-      </div>
-      <div class="icon-container">
-        <svg [ngClass]="{'slide-active': currentItem==2 }" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-2-circle" viewBox="0 0 16 16">
-          <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM6.646 6.24v.07H5.375v-.064c0-1.213.879-2.402 2.637-2.402 1.582 0 2.613.949 2.613 2.215 0 1.002-.6 1.667-1.287 2.43l-.096.107-1.974 2.22v.077h3.498V12H5.422v-.832l2.97-3.293c.434-.475.903-1.008.903-1.705 0-.744-.557-1.236-1.313-1.236-.843 0-1.336.615-1.336 1.306Z"/>
-        </svg>
-      </div>
-
     </div>
     <div class="carousel-body">
       <div
@@ -28,87 +57,86 @@
         data-bs-interval="false"
       >
         <div class="carousel-inner">
-          <div class="carousel-item active">
+          <div class="carousel-item active"></div>
+          <div class="carousel-item">
             <div class="w-100 h-100 d-flex justify-content-center">
-           <div class="carousel-content">
-              <form
-              [formGroup]="registroPanelForm"
-              (ngSubmit)="registrarHerramienta()"
-              autocomplete="off"
-            >
-              <div class="container-fluid">
-                <div class="row g-3 pb-3">
-                  <ng-container
-                    *ngFor="let input of registroPanelFormData.inputs"
-                  >
-                    <div [class]="input.class">
-                      <label
-                        [for]="input.id"
-                        class="form-label"
-                        [innerHTML]="input.label"
-                      ></label>
-                      <input
-                        [type]="input.type"
-                        class="form-control"
-                        [id]="input.id"
-                        [placeholder]="input.placeholder"
-                        [formControlName]="input.id"
-                        [maxlength]="input.maxlength"
-                        [class]="getClassCSS(input.id)"
-                      />
-                      <div
-                        class="invalid-feedback"
-                        [innerHTML]="inputErrorMessage(input)"
-                      ></div>
+              <div class="carousel-content">
+                <form
+                  [formGroup]="registroPanelForm"
+                  (ngSubmit)="registrarHerramienta()"
+                  autocomplete="off"
+                >
+                  <div class="container-fluid">
+                    <div class="row g-3 pb-3">
+                      <ng-container
+                        *ngFor="let input of registroPanelFormData.inputs"
+                      >
+                        <div [class]="input.class">
+                          <label
+                            [for]="input.id"
+                            class="form-label"
+                            [innerHTML]="input.label"
+                          ></label>
+                          <input
+                            [type]="input.type"
+                            class="form-control"
+                            [id]="input.id"
+                            [placeholder]="input.placeholder"
+                            [formControlName]="input.id"
+                            [maxlength]="input.maxlength"
+                            [class]="getClassCSS(input.id)"
+                          />
+                          <div
+                            class="invalid-feedback"
+                            [innerHTML]="inputErrorMessage(input)"
+                          ></div>
+                        </div>
+                      </ng-container>
+                      <label for="basic-addon1" class="form-label"
+                        >Color picker</label
+                      >
+                      <div class="input-group mt-0">
+                        <span
+                          class="input-group-text"
+                          id="basic-addon1"
+                          (click)="onSelectFolder()"
+                          >Select File</span
+                        >
+                        <input
+                          id="route"
+                          type="text"
+                          class="form-control"
+                          placeholder="Route"
+                          aria-label="Route"
+                          aria-describedby="basic-addon1"
+                          formControlName="route"
+                          readonly
+                        />
+                      </div>
+                      <div>
+                        <label for="exampleColorInput" class="form-label"
+                          >Color picker</label
+                        >
+                        <input
+                          type="color"
+                          class="form-control form-control-color"
+                          id="exampleColorInput"
+                          value="#563d7c"
+                          title="Choose your color"
+                        />
+                      </div>
                     </div>
-                  </ng-container>     
-                  <label for="basic-addon1" class="form-label"
-                    >Color picker</label
-                    >
-                  <div class="input-group mt-0">
-               
-                    <span
-                      class="input-group-text"
-                      id="basic-addon1"
-                      (click)="onSelectFolder()"
-                      >Select File</span
-                    >
-                    <input
-                      id="route"
-                      type="text"
-                      class="form-control"
-                      placeholder="Route"
-                      aria-label="Route"
-                      aria-describedby="basic-addon1"
-                      formControlName="route"
-                      readonly
-                    />
                   </div>
-                  <div>
-                    <label for="exampleColorInput" class="form-label"
-                      >Color picker</label
-                    >
-                    <input
-                      type="color"
-                      class="form-control form-control-color"
-                      id="exampleColorInput"
-                      value="#563d7c"
-                      title="Choose your color"
-                    />
-                  </div>
-                </div>
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    (click)="onGenerateAngular()"
+                  >
+                    Registrar Herramienta
+                  </button>
+                </form>
               </div>
-              <button
-                type="submit"
-                class="btn btn-primary"
-                (click)="onGenerateAngular()"
-              >
-                Registrar Herramienta
-              </button>
-              </form>   
             </div>
-            </div>
- 
           </div>
           <div class="carousel-item"></div>
           <div class="carousel-item"></div>
