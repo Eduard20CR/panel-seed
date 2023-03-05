@@ -39,18 +39,19 @@ $animation-closing-speed: 0.2s;
     font-size: toREM(40);
     margin-left: toREM(32);
     min-width: toREM(401);
-    svg {
+    line-height: toREM(40);
+    img {
       width: toREM(40);
       height: toREM(40);
-    }
-    span {
-      line-height: toREM(40);
     }
   }
 
   &__homeIconText {
     opacity: 0;
     transition: opacity $animation-open-speed;
+    line-height: toREM(40);
+    transform: translateY(toREM(1));
+    display: inline-block;
   }
 
   &__primaryListItem {
